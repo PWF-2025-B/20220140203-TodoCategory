@@ -54,18 +54,39 @@ class AuthController extends Controller
 
     /**
      * Logout user yang sedang login.
+     * 
+     * Menghapus token JWT agar tidak bisa digunakan lagi
      */
+
+     #[Response(
+        status: 200,
+        content: [
+            'status_code' => 200,
+            'message' => 'Logout berhasil. Token telah dihapus.'
+        ]
+     )]
+
+     #[Response(
+        status: 500,
+        content: [
+            'status_code' => 500,
+            'message' => 'Gagal logout, terjadi kesalahan.'
+        ]
+     )]
+
     public function logout(Request $request)
     {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
 
             return response()->json([
-                'message' => 'Logout berhasil',
+                'status_code' => 200,
+                'message' => 'Logout berhasil. Token telah dihapus.',
             ], 200);
         } catch (JWTException $e) {
             return response()->json([
-                'message' => 'Logout gagal',
+                'status_code' => 500,
+                'message' => 'Gagal logout, terjadi kesalahan.',
             ], 500);
         }
     }

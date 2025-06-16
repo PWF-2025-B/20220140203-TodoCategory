@@ -107,5 +107,16 @@ return [
         RestrictedDocsAccess::class,
     ],
 
-    'extensions' => [],
+    'extensions' => [
+    \Dedoc\Scramble\Extensions\SecurityExtension::class,
+],
+
+'security' => [
+        'bearer' => [
+            'type' => 'http',
+            'scheme' => 'bearer',
+            'bearerFormat' => 'JWT',
+    ],
+],
+
 ];
